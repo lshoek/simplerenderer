@@ -1,10 +1,10 @@
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include <ctime>
 #include <vector>
 #include <cassert>
 #include <tchar.h>
-#include "configs.h"
 
 #define WINDOWS_LEAN_AND_MEAN
 

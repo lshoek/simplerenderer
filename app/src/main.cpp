@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "stdafx.h"
+#include "configs.h"
 #include "tgaimage.h"
 #include "drawing.h"
 #include "model.h"
@@ -22,9 +23,12 @@ int testdrawing(TGAImage &image, int freq)
 {
 	clock_t start = clock();
 	for (int i = 0; i < freq; i++) {
-		line2d(32, 32, 90, 120, image, TGA_BLUE);
-		line2d(0, 0, IMG_WIDTH, IMG_HEIGHT, image, TGA_WHITE);
-		line2d(IMG_WIDTH, 100, 0, 0, image, TGA_RED);
+		vec2i t0[3] = { vec2i(10, 70), vec2i(50, 160), vec2i(70, 80) };
+		vec2i t1[3] = { vec2i(180, 50), vec2i(150, 1), vec2i(70, 180) };
+		vec2i t2[3] = { vec2i(180, 150), vec2i(120, 160), vec2i(130, 180) };
+		triangle2d(t0[0], t0[1], t0[2], image, TGA_RED);
+		triangle2d(t1[0], t1[1], t1[2], image, TGA_WHITE);
+		triangle2d(t2[0], t2[1], t2[2], image, TGA_GREEN);
 	}
 	float duration = (float)(clock() - start) / CLOCKS_PER_SEC;
 	std::ostringstream os;
@@ -103,8 +107,7 @@ int main(int argc, char** argv)
 	TGAImage image(IMG_WIDTH, IMG_HEIGHT, TGAImage::RGB);
 
 	// testdrawing function
-	float time = 0;
-	// float time = testdrawing(image, 500000);
+	testdrawing(image, 1); // freq 500000
 
 	// load model
 	if (argc == 2)
@@ -117,15 +120,11 @@ int main(int argc, char** argv)
 		std::vector<int> face = model->face(i);
 		assert(face.size() == 3);
 		for (int j=0; j<3; j++) {
-			Vec3f v0 = model->vert(face[j]);
-			Vec3f v1 = model->vert(face[(j+1)%3]);
-			v0 = v0 * (1.0f/model->size);
-			v1 = v1 * (1.0f/model->size);
-			int x0 = (v0.x + 1.0f)*IMG_WIDTH/2.0f;
-			int y0 = (v0.y + 1.0f)*IMG_HEIGHT/2.0f;
-			int x1 = (v1.x + 1.0f)*IMG_WIDTH/2.0f;
-			int y1 = (v1.y + 1.0f)*IMG_HEIGHT/2.0f;
-			line2d(x0, y0, x1, y1, image, TGA_WHITE);
+			vec3f vf0 = model->vert(face[j]) * (1.0f/model->size);;
+			vec3f vf1 = model->vert(face[(j+1)%3]) * (1.0f/model->size);;
+			vec2i vi0 = vec2i((vf0.x + 1.0f)*IMG_WIDTH/2.0f, (vf0.y + 1.0f)*IMG_HEIGHT/2.0f);
+			vec2i vi1 = vec2i((vf1.x + 1.0f)*IMG_WIDTH/2.0f, (vf1.y + 1.0f)*IMG_HEIGHT/2.0f);
+			line2d(vi0, vi1, image, TGA_WHITE);
 		}
 	}
 	delete model;
