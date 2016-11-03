@@ -34,7 +34,8 @@ template <class t> struct vec3 {
 	inline t       operator *(const vec3<t> &v) const { return x*v.x + y*v.y + z*v.z; }
 	float norm () const { return std::sqrt(x*x+y*y+z*z); }
 	vec3<t> & normalize(t l=1) { *this = (*this)*(l/norm()); return *this; }
-	template <class > friend std::ostream& operator<<(std::ostream& s, vec3<t>& v);
+	static vec3<float> cross(vec3<float> a, vec3<float> b) { return vec3<float>(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x); }
+	template <class> friend std::ostream& operator<<(std::ostream& s, vec3<t>& v);
 };
 
 typedef vec2<float> vec2f;

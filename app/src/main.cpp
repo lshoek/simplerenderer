@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <windows.h>
 #include "stdafx.h"
 #include "configs.h"
@@ -19,16 +20,16 @@ TCHAR szTitle[] = _T("simplerenderer");
 
 Model *model = NULL;
 
-int testdrawing(TGAImage &image, int freq)
+int testdrawing(TGAImage &img, int freq)
 {
 	clock_t start = clock();
 	for (int i = 0; i < freq; i++) {
 		vec2i t0[3] = { vec2i(10, 70), vec2i(50, 160), vec2i(70, 80) };
-		vec2i t1[3] = { vec2i(180, 50), vec2i(150, 1), vec2i(70, 180) };
+		vec2i t1[3] = { vec2i(180, 50), vec2i(80, 100), vec2i(90, 180) };
 		vec2i t2[3] = { vec2i(180, 150), vec2i(120, 160), vec2i(130, 180) };
-		triangle2d(t0[0], t0[1], t0[2], image, TGA_RED);
-		triangle2d(t1[0], t1[1], t1[2], image, TGA_WHITE);
-		triangle2d(t2[0], t2[1], t2[2], image, TGA_GREEN);
+		triangle2d(t0, img, TGA_RED);
+		triangle2d(t1, img, TGA_WHITE);
+		triangle2d(t2, img, TGA_GREEN);
 	}
 	float duration = (float)(clock() - start) / CLOCKS_PER_SEC;
 	std::ostringstream os;
@@ -49,9 +50,6 @@ long __stdcall WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM 
 		std::cout << "\ndestroying window\n";
 		PostQuitMessage(0);
 		return 0L;
-	case WM_LBUTTONDOWN:
-		std::cout << "\nmouse left button down at (" << LOWORD(lp) << ',' << HIWORD(lp) << ")\n";
-		// fall through
 	default:
 		return DefWindowProc(window, msg, wp, lp);
 	}
@@ -104,10 +102,10 @@ int constructHWND()
 
 int main(int argc, char** argv)
 {
-	TGAImage image(IMG_WIDTH, IMG_HEIGHT, TGAImage::RGB);
+	TGAImage img(IMG_WIDTH, IMG_HEIGHT, TGAImage::RGB);
 
 	// testdrawing function
-	testdrawing(image, 1); // freq 500000
+	testdrawing(img, 1); // freq 500000
 
 	// load model
 	if (argc == 2)
@@ -115,23 +113,12 @@ int main(int argc, char** argv)
 	else
 		model = new Model(TEAPOT_OBJ_PATH);
 
-	// draw model
-	for (int i = 0; i<model->nfaces(); i++) {
-		std::vector<int> face = model->face(i);
-		assert(face.size() == 3);
-		for (int j=0; j<3; j++) {
-			vec3f vf0 = model->vert(face[j]) * (1.0f/model->size);;
-			vec3f vf1 = model->vert(face[(j+1)%3]) * (1.0f/model->size);;
-			vec2i vi0 = vec2i((vf0.x + 1.0f)*IMG_WIDTH/2.0f, (vf0.y + 1.0f)*IMG_HEIGHT/2.0f);
-			vec2i vi1 = vec2i((vf1.x + 1.0f)*IMG_WIDTH/2.0f, (vf1.y + 1.0f)*IMG_HEIGHT/2.0f);
-			line2d(vi0, vi1, image, TGA_WHITE);
-		}
-	}
+	render(model, img, RenderMode::FACES);
 	delete model;
 
 	// set origin to bottom left corner and write to file
-	image.flip_vertically();
-	image.write_tga_file(OUTPUT_PATH);
+	img.flip_vertically();
+	img.write_tga_file(OUTPUT_PATH);
 
 	// print result message
 	std::ostringstream os;
@@ -148,7 +135,7 @@ int main(int argc, char** argv)
 	SetROP2(hdc, R2_NOTXORPEN);
 	for (int y=0; y<IMG_WIDTH; y++) {
 		for (int x=0; x<IMG_HEIGHT; x++) {
-			TGAColor c = image.get(x, y);
+			TGAColor c = img.get(x, y);
 			SetPixel(hdc, x, y, RGB(c.r, c.g, c.b));
 		}
 	}
