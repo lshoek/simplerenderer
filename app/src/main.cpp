@@ -114,6 +114,7 @@ int main(int argc, char** argv)
 		model = new Model(TEAPOT_OBJ_PATH);
 
 	render(model, img, RenderMode::FACES);
+	render(model, img, RenderMode::LINES);
 	delete model;
 
 	// set origin to bottom left corner and write to file
