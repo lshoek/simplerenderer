@@ -88,6 +88,7 @@
     <ClInclude Include="include\drawing.h" />
     <ClInclude Include="include\geometry.h" />
     <ClInclude Include="include\model.h" />
+    <ClInclude Include="include\palettes.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\tgaimage.h" />
   </ItemGroup>

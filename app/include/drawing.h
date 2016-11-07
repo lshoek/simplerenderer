@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "geometry.h"
 #include "model.h"
+#include "palettes.h"
 
 static enum RenderMode { LINES, FACES };
 
@@ -133,7 +134,7 @@ void render(Model *m, TGAImage &img, RenderMode rm)
 				vec3f world_coords = m->vert(face[j]) * (1.0f / m->size);
 				screen_coords[j] = vec2i((world_coords.x + 1.0f)*IMG_WIDTH / 2.0f, (world_coords.y + 1.0f)*IMG_HEIGHT / 2.0f);
 			}
-			triangle2d(screen_coords, img, TGAColor(rand() % 255, rand() % 255, rand() % 255, 255));
+			triangle2d(screen_coords, img, palettes[2].getrandom());
 		}
 		break;
 	}

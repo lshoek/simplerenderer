@@ -105,16 +105,20 @@ int main(int argc, char** argv)
 	TGAImage img(IMG_WIDTH, IMG_HEIGHT, TGAImage::RGB);
 
 	// testdrawing function
-	testdrawing(img, 1); // freq 500000
+	//testdrawing(img, 1); // freq 500000
 
 	// load model
 	if (argc == 2)
 		model = new Model(argv[1]);
 	else
-		model = new Model(TEAPOT_OBJ_PATH);
+		model = new Model(TEAPOT1_OBJ_PATH);
 
+	// load color palettes
+	loadpalettes(PALETTES_PATH);
+
+	// render
 	render(model, img, RenderMode::FACES);
-	render(model, img, RenderMode::LINES);
+	//render(model, img, RenderMode::LINES);
 	delete model;
 
 	// set origin to bottom left corner and write to file

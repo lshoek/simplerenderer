@@ -5,8 +5,11 @@
 
 #define OUTPUT_PATH "../data/output/output.tga"
 
-#define TEAPOT_OBJ_PATH "../data/obj/teapot.obj"
+#define TEAPOT0_OBJ_PATH "../data/obj/teapot0.obj"
+#define TEAPOT1_OBJ_PATH "../data/obj/teapot1.obj"
 #define HEAD_OBJ_PATH "../data/obj/head.obj"
+
+#define PALETTES_PATH "../data/col/palettes.txt"
 
 #define IMG_WIDTH 640
 #define IMG_HEIGHT 640
