@@ -115,6 +115,7 @@ int main(int argc, char** argv)
 
 	// load color palettes
 	loadpalettes(PALETTES_PATH);
+	registerPalette(2);
 
 	// render
 	render(model, img, RenderMode::FACES);

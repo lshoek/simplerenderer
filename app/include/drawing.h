@@ -2,8 +2,10 @@
 #include "geometry.h"
 #include "model.h"
 #include "palettes.h"
+#include "configs.h"
 
 static enum RenderMode { LINES, FACES };
+const vec3f LIGHT_DIR = vec3f(0, 0, -1.0f);
 
 void pixel2d(vec2i v0, TGAImage &img, const TGAColor &col)
 {
@@ -130,11 +132,20 @@ void render(Model *m, TGAImage &img, RenderMode rm)
 			std::vector<int> face = m->face(i);
 			assert(face.size() == 3);
 			vec2i screen_coords[3];
+			vec3f world_coords[3];
 			for (int j = 0; j<3; j++) {
-				vec3f world_coords = m->vert(face[j]) * (1.0f / m->size);
-				screen_coords[j] = vec2i((world_coords.x + 1.0f)*IMG_WIDTH / 2.0f, (world_coords.y + 1.0f)*IMG_HEIGHT / 2.0f);
+				vec3f v = m->vert(face[j]) * (1.0f / m->size);
+				screen_coords[j] = vec2i((v.x + 1.0f)*IMG_WIDTH / 2.0f, (v.y + 1.0f)*IMG_HEIGHT / 2.0f);
+				world_coords[j] = v;
 			}
-			triangle2d(screen_coords, img, palettes[2].getrandom());
+			vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
+			n.normalize();
+			float intensity = n*LIGHT_DIR;
+			if (intensity>0) {
+				TGAColor col = getRegisteredPalette()->getrandom();
+				for (int j = 0; j < 3; j++) col.raw[j] *= intensity;
+				triangle2d(screen_coords, img, col);
+			}
 		}
 		break;
 	}

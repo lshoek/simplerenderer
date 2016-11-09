@@ -1,11 +1,31 @@
 #include <random>
+#include "tgaimage.h"
 
 const int NUM_COLORS = 8;
 struct palette {
 	TGAColor cols[NUM_COLORS];
 	TGAColor getrandom() { return cols[rand() % NUM_COLORS]; };
+	palette() { for (int i = 0; i < NUM_COLORS; i++) cols[i] = TGAColor(255); };
 };
 std::vector<palette> palettes;
+palette* pRegisteredPalette = NULL;
+
+static int registerPalette(int index)
+{
+	if (!palettes.empty()) {
+		pRegisteredPalette = &palettes[index%palettes.size()];
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+static palette* getRegisteredPalette()
+{
+	if (pRegisteredPalette != NULL)
+		return pRegisteredPalette;
+	else return nullptr;
+}
 
 static TGAColor parsehex(std::string hex)
 {

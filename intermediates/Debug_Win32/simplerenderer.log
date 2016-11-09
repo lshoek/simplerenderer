@@ -1,19 +1,20 @@
-﻿Build started 07.11.2016 20:25:40.
+﻿Build started 09.11.2016 14:42:29.
      1>Project "C:\Users\Lesley\repos\simplerenderer\app\simplerenderer.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"../intermediates/Debug_Win32/" /Fd"../intermediates/Debug_Win32/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\main.cpp
          main.cpp
-     1>c:\users\lesley\repos\simplerenderer\app\include\palettes.h(17): warning C4996: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+     1>c:\users\lesley\repos\simplerenderer\app\include\palettes.h(37): warning C4996: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\xstring(1798) : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::copy'
-     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(52): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(53): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(122): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(123): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(135): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(54): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(55): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(124): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(125): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(138): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lesley\repos\simplerenderer\app\include\drawing.h(146): warning C4244: '*=' : conversion from 'float' to 'unsigned char', possible loss of data
      1>c:\users\lesley\repos\simplerenderer\app\include\geometry.h(18): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
                  c:\users\lesley\repos\simplerenderer\app\include\geometry.h(18) : while compiling class template member function 'vec2<int> vec2<int>::operator *(float) const'
-                 c:\users\lesley\repos\simplerenderer\app\include\drawing.h(105) : see reference to function template instantiation 'vec2<int> vec2<int>::operator *(float) const' being compiled
-                 c:\users\lesley\repos\simplerenderer\app\include\drawing.h(9) : see reference to class template instantiation 'vec2<int>' being compiled
+                 c:\users\lesley\repos\simplerenderer\app\include\drawing.h(107) : see reference to function template instantiation 'vec2<int> vec2<int>::operator *(float) const' being compiled
+                 c:\users\lesley\repos\simplerenderer\app\include\drawing.h(11) : see reference to class template instantiation 'vec2<int>' being compiled
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../executables/Debug_Win32/simplerenderer.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"../executables/Debug_Win32/simplerenderer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../executables/Debug_Win32/simplerenderer.lib" /MACHINE:X86 ../intermediates/Debug_Win32/main.obj
          ../intermediates/Debug_Win32/model.obj
@@ -23,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.22
+Time Elapsed 00:00:02.06
